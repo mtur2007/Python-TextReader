@@ -220,6 +220,21 @@ def insertlist(color_image,code0list,txtx,txty,width,hight,sahight):
     return txtcode,linelen,txtlen,hight,Max 
 
 
+#調整が終わったら起動していくプログラム
+def seach_strat(color_image,code0list,txtx,txty,width,hight,sahight):
+    txtcode,linelen,txtlen,hight,Max = insertlist(color_image,code0list,txtx,txty,width,hight,sahight)
+    print(f"\ntxtcode.shape{txtcode.shape}\n{txtcode}\n----------------------------")
+
+
+    txt = ""
+    for i in range(linelen):
+        txt = ""
+        for a in range(txtlen):
+            a,b = seach(txtcode[i,a],Unicode)
+            txt = txt + guide[b]
+
+        print(txt)
+
 
 '''
 -----------------------------------------------------------------------------------------------------------------
@@ -264,7 +279,7 @@ def backup_txtcode(seach_txtcode,filename):
 
 # function / txtcode_selection / [実用可能な文字コードをまとめる] / (backup_filename, hight, Max) / return 指標リスト, 文字コード
 
-def txtcode_selection(filename,hight,Max):
+def txtcode_selection(filename):
     seach_code_test = np.array([],dtype='i8')
     seach_type_test = []
     onetxt = np.array([0])
@@ -298,8 +313,8 @@ def txtcode_selection(filename,hight,Max):
                     elif txt == "1":
                         onetxt = np.append(onetxt,1)
 
-    linelen = seach_code_test.shape[0]/(hight*Max)
-    seach_code_test = seach_code_test.reshape(int(linelen),hight,Max)
+    linelen = seach_code_test.shape[0]/(36*20)
+    seach_code_test = seach_code_test.reshape(int(linelen),36,20)
 
     print(Nonetype)
 
@@ -376,6 +391,10 @@ def seach(txtcode,Unicode):
     return hozonn,line
 
 
+#識字コードの定義
+backupfile_name = "thin_seach_txtcode.txt" # このファイルに情報が入っている
+guide,Unicode = txtcode_selection(backupfile_name)
+
 
 """
 ============================================================================================================================================
@@ -401,30 +420,19 @@ sahight = 13.25 #余分な高さ
 CUT(color_image,code0list,txtx,txty,width,hight,sahight)
 advice(code0list,0.07,hight,sahight,width)
 
-
-#調整が終わったら起動していくプログラム
-
-#txtcode,linelen,txtlen,hight,Max = insertlist(color_image,code0list,txtx,txty,width,hight,sahight)
-#print(f"\ntxtcode.shape{txtcode.shape}\n{txtcode}\n----------------------------")
+#final
+#seach_strat(color_image,code0list,txtx,txty,width,hight,sahight)
 
 
-#識字コードの定義
+#識字コードの詳細な定義
 
-backupfile_name = "thin_seach_txtcode.txt"
+#backupfile_name = "thin_seach_txtcode.txt"
 
 #set_txtcode(txtcode, seach_txtcode, inserttxt, linenum, txtlennum):
 #backup_txtcode(seach_txtcode, backupfile_name)
-guide,Unicode = txtcode_selection(backupfile_name,hight,Max)
-seach_txtcode = restoration(backupfile_name)
+#seach_txtcode = restoration(backupfile_name)
 
 
-txt = ""
-for i in range(linelen):
-    txt = ""
-    for a in range(txtlen):
-        a,b = seach(txtcode[i,a],Unicode)
-        txt = txt + guide[b]
-    print(txt)
 
 #np.count_nonzero(txtcode[10,48] == Unicode[41])
 #txtcode[10,48]

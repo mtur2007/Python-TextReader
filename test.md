@@ -20,11 +20,15 @@ line : 366 ~ 400
  code ; code0list = removal_background(color_image, [ __ , __ , __ ] , __ ) #カラーイメージ,背景色,背景色範囲
                                                       ^^   ^^   ^^     ^^
 
-   4  : 
+   4  : 初期描画位置の指定… 一番初めの文字の左上の位置を(txtx,txty)に代入する
  code ; #変更可能 /  一番初めの文字の左上の位置を(txtx,txty)に代入する
-        txtx = 4 #一番最初の文字の一番左の座標
-        txty = 11 #一番最初の文字の一番上の座標
+        txtx = __ #一番最初の文字の一番左の座標
+        txty = __ #一番最初の文字の一番上の座標
+               ^^
 
 一通りできたら実行。
 
-重労働 :ファイル [ "test_codetxt" ] を開きブロックと文字が合うまで 2 ~ 4 を続ける
+
+重労働 : ファイル [ "test_codetxt" ] を開きブロックと文字が合うまで 2 ~ 4 を続ける
+
+final : seach_strat(color_image,code0list,txtx,txty,width,hight,sahight)を起動
