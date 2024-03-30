@@ -405,7 +405,7 @@ advice(code0list,0.07,hight,sahight,width)
 
 #調整が終わったら起動していくプログラム
 
-#txtcode,linelen,txtlen,hight,Max = insertlist(color_image,code0list,txtx,txty,width,hight,sahight)
+txtcode,linelen,txtlen,hight,Max = insertlist(color_image,code0list,txtx,txty,width,hight,sahight)
 #print(f"\ntxtcode.shape{txtcode.shape}\n{txtcode}\n----------------------------")
 
 
