@@ -193,15 +193,14 @@ def insertlist(color_image,code0list,txtx,txty,width,hight,sahight):
 
         for line in range(linelen): #行数
             x = txtx
-            for i in range(txtlen):  #文字数
-                inserttxt = np.array([])
+            for nouse in range(txtlen):  #文字数
 
                 for liney in range(hight):  #高さ
 
                     txtdata = (code0list[(liney+txty) + sisyagonyu(line*(hight+sahight)) ,sisyagonyu(x):sisyagonyu(x+width)])
 
                     if zettai(20 - len(txtdata)) != 0:
-                        for i in range(zettai(20 - len(txtdata))):
+                        for nouse in range(zettai(20 - len(txtdata))):
                             txtdata = np.insert(txtdata,0,np.array(1))
     
                     txtcode = np.append(txtcode, txtdata)
@@ -405,7 +404,7 @@ advice(code0list,0.07,hight,sahight,width)
 
 #調整が終わったら起動していくプログラム
 
-txtcode,linelen,txtlen,hight,Max = insertlist(color_image,code0list,txtx,txty,width,hight,sahight)
+#txtcode,linelen,txtlen,hight,Max = insertlist(color_image,code0list,txtx,txty,width,hight,sahight)
 #print(f"\ntxtcode.shape{txtcode.shape}\n{txtcode}\n----------------------------")
 
 
