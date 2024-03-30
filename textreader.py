@@ -77,7 +77,7 @@ def CUT(color_image,code0list,txtx,txty,width,hight,sahight):
     txtlen = int((color_image.shape[1] - txtx) // width)
     print(f"行数{linelen}, 文字数{txtlen}")
 
-    with open("txtcode","w") as f:
+    with open("test_txtcode.txt","w") as f:
         for line in range(linelen): #行数
 
             for liney in range(hight):  #高さ
@@ -173,15 +173,6 @@ def advice(code0list,wariai,hight,sahight,width):
 
 # function / 'insertlist'
 
-
-#txtx = 4 #一番最初の文字の一番左の座標
-#txty = 7 #一番最初の文字の一番上の座標 (つまり、x,yは文字の左上を表せる位置)
-
-#width = 19.82   #文字の幅
-#hight = 36      #文字の高さ
-#sahight = 13.25 #余分な高さ
-
-
 def insertlist(color_image,code0list,txtx,txty,width,hight,sahight):
 
     linelen = int((color_image.shape[0] - txty + sahight) // (hight + sahight))
@@ -197,8 +188,6 @@ def insertlist(color_image,code0list,txtx,txty,width,hight,sahight):
         x += width
         
     txtcode = np.array([], dtype='i1')
-
-    #txtcode = np.reshape(txtcode,[linelen, txtlen])
 
     with open("txtcode.txt", "w") as f:
 
@@ -370,8 +359,28 @@ def set_txtcode(seach_txtcode, txttype, line,txtline, txtcode):
 
     return seach_txtcode
 
-#seach_txtcode = set_txtcode(seach_txtcode,"#",6,4,txtcode)            
+#seach_txtcode = set_txtcode(seach_txtcode,"#",6,4,txtcode)
 
+
+# 文字識別関数
+def seach(txtcode,Unicode):
+    hozonn = 0
+    line = 0
+
+    for Uniline in range (len(Unicode)):
+        a = (np.count_nonzero(txtcode == Unicode[Uniline]))
+        
+        if a > hozonn :
+            hozonn = a
+            line = Uniline
+    
+    return hozonn,line
+
+
+
+"""
+============================================================================================================================================
+"""
 
 
 # マニュアル操作
@@ -396,11 +405,11 @@ advice(code0list,0.07,hight,sahight,width)
 
 #調整が終わったら起動していくプログラム
 
-txtcode,linelen,txtlen,hight,Max = insertlist(color_image,code0list,txtx,txty,width,hight,sahight)
-print(f"\ntxtcode.shape{txtcode.shape}\n{txtcode}\n----------------------------")
+#txtcode,linelen,txtlen,hight,Max = insertlist(color_image,code0list,txtx,txty,width,hight,sahight)
+#print(f"\ntxtcode.shape{txtcode.shape}\n{txtcode}\n----------------------------")
 
 
-#実際に関数を使う
+#識字コードの定義
 
 backupfile_name = "thin_seach_txtcode.txt"
 
@@ -409,23 +418,6 @@ backupfile_name = "thin_seach_txtcode.txt"
 guide,Unicode = txtcode_selection(backupfile_name,hight,Max)
 seach_txtcode = restoration(backupfile_name)
 
-
-
-
-def seach(txtcode,Unicode):
-    hozonn = 0
-    line = 0
-
-    for Uniline in range (len(Unicode)):
-        a = (np.count_nonzero(txtcode == Unicode[Uniline]))
-        
-        if a > hozonn :
-            hozonn = a
-            line = Uniline
-    
-    return hozonn,line
-
-print(len(txtcode),len(guide))
 
 txt = ""
 for i in range(linelen):
