@@ -438,3 +438,11 @@ seach_strat(color_image,code0list,txtx,txty,width,hight,sahight)
 #np.count_nonzero(txtcode[10,48] == Unicode[41])
 #txtcode[10,48]
 #guide[41]
+
+shifxtnum = 2
+
+anser = Unicode
+for y in range(Unicode.shape[0]):
+    for x in range(Unicode.shape[1]-shifxtnum):
+        Unicode
+    anser = 
