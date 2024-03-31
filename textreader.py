@@ -444,5 +444,6 @@ shifxtnum = 2
 anser = Unicode
 for y in range(Unicode.shape[0]):
     for x in range(Unicode.shape[1]-shifxtnum):
-        Unicode
-    anser = 
+        anser[y,x+shifxtnum] = Unicode[y,x]
+
+print(anser)
