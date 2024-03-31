@@ -85,7 +85,7 @@ def CUT(color_image,code0list,txtx,txty,width,hight,sahight):
                 txt = ""
                 x = txtx
 
-                for i in range(txtlen):  #文字数
+                for nouse in range(txtlen):  #文字数
                     for txtline in code0list[(liney+txty) + sisyagonyu(line*(hight+sahight)) ,sisyagonyu(x):sisyagonyu(x+width)]:
                         txt = txt + str(txtline)
 
@@ -182,7 +182,7 @@ def insertlist(color_image,code0list,txtx,txty,width,hight,sahight):
 
     Max = 0 #最大データ量調べ
     x = txtx
-    for i in range(txtlen):
+    for nouse in range(txtlen):
         if Max < (sisyagonyu(x + width) - sisyagonyu(x)):
             Max = (sisyagonyu(x + width) - sisyagonyu(x))
         x += width
