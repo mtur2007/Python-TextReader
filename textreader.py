@@ -167,7 +167,7 @@ def advice(code0list,wariai,hight,sahight,width):
 
 
 
-    print(f"枠 : 縦[ {hight} + (描画範囲外:{sahight}) ]  *  幅[{width}]\nブロックの大きさ(1)に対し写真側は({width/(count/txtlen)})")
+    print(f"枠 : 縦[ {hight} + (描画範囲外:{sahight}) ]  *  幅[{width}]\nブロックの大きさ(1)に対し写真側は({width/(count/txtlen)} ※これはあくまでも目安です。)")
     
 
 
@@ -284,7 +284,7 @@ def txtcode_selection(filename):
     seach_type_test = []
     onetxt = np.array([0])
     seach = "None"
-    txttype = ""
+    txttype, seach_txttype = "",[]
     Nonetype = []
 
     with open(filename,"r") as f:
@@ -298,6 +298,7 @@ def txtcode_selection(filename):
                 txttype = line[1]
                         
                 txt = line[1]
+                seach_txttype.append(txt)
                 onetxt = np.array([],dtype='i8')
 
             elif line == "None":
@@ -318,7 +319,7 @@ def txtcode_selection(filename):
 
     print(Nonetype)
 
-    return seach_type_test, seach_code_test
+    return seach_type_test, seach_code_test, seach_txttype
 
 
 
@@ -393,7 +394,7 @@ def seach(txtcode,Unicode):
 
 #識字コードの定義
 backupfile_name = "thin_seach_txtcode.txt" # このファイルに情報が入っている
-guide,Unicode = txtcode_selection(backupfile_name)
+guide,Unicode,seach_txttype = txtcode_selection(backupfile_name)
 
 
 """
@@ -418,10 +419,10 @@ hight = 36      #文字の高さ
 sahight = 13.25 #余分な高さ
 
 CUT(color_image,code0list,txtx,txty,width,hight,sahight)
-advice(code0list,0.07,hight,sahight,width)
+#advice(code0list,0.07,hight,sahight,width) 
 
 #final
-#seach_strat(color_image,code0list,txtx,txty,width,hight,sahight)
+seach_strat(color_image,code0list,txtx,txty,width,hight,sahight)
 
 
 #識字コードの詳細な定義
