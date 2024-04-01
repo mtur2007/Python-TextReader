@@ -158,10 +158,9 @@ def advice(code0list,wariai,hight,sahight,width):
     word_count = 0
     for line in interval:
         word_count += line // minimum_interval
-        print(line)
         txtlen += line
 
-    print(txtlen/(word_count +1))
+    print(txtlen/word_count)
 
     #print(f"枠 : 縦[ {hight} + (描画範囲外:{sahight}) ]  *  幅[{width}]\nブロックの大きさ(1)に対し写真側は({width/(count/txtlen)} ※これはあくまでも目安です。)")
     
@@ -219,7 +218,7 @@ def insertlist(color_image,code0list,txtx,txty,width,hight,sahight):
 #調整が終わったら起動していくプログラム
 def seach_strat(color_image,code0list,txtx,txty,width,hight,sahight):
     txtcode,linelen,txtlen,hight,Max = insertlist(color_image,code0list,txtx,txty,width,hight,sahight)
-    print(f"\ntxtcode.shape{txtcode.shape}\n{txtcode}\n----------------------------")
+    #print(f"\ntxtcode.shape{txtcode.shape}\n{txtcode}\n----------------------------")
 
 
     txt = ""
@@ -402,23 +401,24 @@ guide,Unicode,seach_txttype = txtcode_selection(backupfile_name)
 
 imagename = "/Users/matsuurakenshin/WorkSpace/development/version=1&uuid=373F890D-0E09-4AFD-A766-6EA15D4186CB&mode=compatible&noloc=0.jpeg"
 
-color_image = set_image(imagename,0.89) #イメージとその比率
+color_image = set_image(imagename,0.9) #イメージとその比率
 code0list = removal_background(color_image,[36,36,36],2) #イメージ,背景色,背景色範囲
 
 #変更可能 /  一番初めの文字の左上の位置を(txtx,txty)に代入する
-txtx = 4 #一番最初の文字の一番左の座標
-txty = 11 #一番最初の文字の一番上の座標
+txtx = 5 #一番最初の文字の一番左の座標
+txty = 12 #一番最初の文字の一番上の座標
 
 #変更不可 // ブロックの幅を変えることに対応していないので(width,hight,sahight)の値は変える事はできない
-width = 19.81   #文字の幅　
+width = 19.84   #文字の幅　
 hight = 36      #文字の高さ
-sahight = 13.25 #余分な高さ
+sahight = 13.18 #余分な高さ
 
 #CUT(color_image,code0list,txtx,txty,width,hight,sahight)
-advice(code0list,1,hight,sahight,width) 
+advice(code0list,1,hight,sahight,width)
+advice(code0list,0.07,hight,sahight,width)
 
 #final
-#seach_strat(color_image,code0list,txtx,txty,width,hight,sahight)
+seach_strat(color_image,code0list,txtx,txty,width,hight,sahight)
 
 
 #識字コードの詳細な定義
