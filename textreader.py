@@ -98,8 +98,8 @@ def CUT(color_image,code0list,txtx,txty,width,hight,sahight):
 
 
 
-# function / 'advice'
-# 比率計算
+# function / 'get_interval'
+# 文字間隔の取得
 
 def seach_txt(code0list,wariai,direction):
     seach = "background"
@@ -134,12 +134,7 @@ def seach_txt(code0list,wariai,direction):
 
 
 
-def advice(code0list,wariai,hight,sahight,width):
-    #写真(返答値は最初の文字[Normal])
-    #ylen = color_image.shape[0]
-    #line_image = np.array(image)
-    #line_image[int((ylen*wariai)-ylen*0.005):int((ylen*wariai)+ylen*0.005),:] = np.array([200,0,0])
-    #plt.imshow(line_image)
+def get_interval(code0list,wariai):
 
     block = (seach_txt(code0list, wariai, "penetration"))
     interval = []
@@ -160,7 +155,7 @@ def advice(code0list,wariai,hight,sahight,width):
         word_count += line // minimum_interval
         txtlen += line
 
-    print(txtlen/word_count)
+    return txtlen/word_count
 
     #print(f"枠 : 縦[ {hight} + (描画範囲外:{sahight}) ]  *  幅[{width}]\nブロックの大きさ(1)に対し写真側は({width/(count/txtlen)} ※これはあくまでも目安です。)")
     
@@ -402,7 +397,7 @@ guide,Unicode,seach_txttype = txtcode_selection(backupfile_name)
 imagename = "/Users/matsuurakenshin/WorkSpace/development/version=1&uuid=373F890D-0E09-4AFD-A766-6EA15D4186CB&mode=compatible&noloc=0.jpeg"
 
 color_image = set_image(imagename,0.9) #イメージとその比率
-code0list = removal_background(color_image,[36,36,36],2) #イメージ,背景色,背景色範囲
+code0list = removal_background(color_image,[36,36,36],10) #イメージ,背景色,背景色範囲
 
 #変更可能 /  一番初めの文字の左上の位置を(txtx,txty)に代入する
 txtx = 5 #一番最初の文字の一番左の座標
@@ -414,8 +409,8 @@ hight = 36      #文字の高さ
 sahight = 13.18 #余分な高さ
 
 #CUT(color_image,code0list,txtx,txty,width,hight,sahight)
-advice(code0list,1,hight,sahight,width)
-advice(code0list,0.07,hight,sahight,width)
+get_interval(code0list,1)
+get_interval(code0list,0.07)
 
 #final
 seach_strat(color_image,code0list,txtx,txty,width,hight,sahight)
