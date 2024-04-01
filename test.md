@@ -30,5 +30,6 @@ line : 366 ~ 400
 
 
 重労働 : ファイル [ "test_codetxt" ] を開きブロックと文字が合うまで 2 ~ 4 を続ける
+         → CUT関数がtest_codetxtを生成する。
 
 final : seach_strat(color_image,code0list,txtx,txty,width,hight,sahight)を起動

@@ -118,12 +118,16 @@ def seach_txt(code0list,wariai,direction):
                 if seach == "background":
                     seach = "txt"
                     txt_sfx_sy.append([y, x, ""])
+                    print(f"開始位置:{len(txt_sfx_sy)}回目,{y+1},{x+1}")
+                else:
+                    print("通過位置",y+1,x+1)
 
                 break
 
         else:
             if seach == "txt":
                 seach = "background"
+                print("停止位置",y+1,x+1)
                 txt_sfx_sy[-1][2] = x-1
 
                 if direction != "penetration":
@@ -143,7 +147,7 @@ def advice(code0list,wariai,hight,sahight,width):
 
     block = (seach_txt(code0list, wariai, "penetration"))
     interval = []
-    minimum_interval = 100 #100は仮置き
+    minimum_interval = 1000 #1000は仮置き
     for line in range(len(block)-1):
         Beforeblock = block[line][1] + (block[line][2]-block[line][1])
         Afterblock = block[line+1][1] + (block[line+1][2]-block[line+1][1])
@@ -154,20 +158,16 @@ def advice(code0list,wariai,hight,sahight,width):
         interval.append(Afterblock - Beforeblock)
 
 
-    count = 0
     txtlen = 0
+    word_count = 0
     for line in interval:
-        if line - minimum_interval > minimum_interval*0.5:
-            count += (line-minimum_interval) + (line-(line-minimum_interval))
+        word_count += line // minimum_interval
+        print(line)
+        txtlen += line
 
-            txtlen += 2
-        else:
-            count += line
-            txtlen += 1
+    print(txtlen/word_count)
 
-
-
-    print(f"枠 : 縦[ {hight} + (描画範囲外:{sahight}) ]  *  幅[{width}]\nブロックの大きさ(1)に対し写真側は({width/(count/txtlen)} ※これはあくまでも目安です。)")
+    #print(f"枠 : 縦[ {hight} + (描画範囲外:{sahight}) ]  *  幅[{width}]\nブロックの大きさ(1)に対し写真側は({width/(count/txtlen)} ※これはあくまでも目安です。)")
     
 
 
@@ -418,11 +418,11 @@ width = 19.81   #文字の幅　
 hight = 36      #文字の高さ
 sahight = 13.25 #余分な高さ
 
-CUT(color_image,code0list,txtx,txty,width,hight,sahight)
-#advice(code0list,0.07,hight,sahight,width) 
+#CUT(color_image,code0list,txtx,txty,width,hight,sahight)
+advice(code0list,1,hight,sahight,width) 
 
 #final
-seach_strat(color_image,code0list,txtx,txty,width,hight,sahight)
+#seach_strat(color_image,code0list,txtx,txty,width,hight,sahight)
 
 
 #識字コードの詳細な定義
@@ -439,11 +439,11 @@ seach_strat(color_image,code0list,txtx,txty,width,hight,sahight)
 #txtcode[10,48]
 #guide[41]
 
-shifxtnum = 2
+#shifxtnum = 2
 
-anser = Unicode
-for y in range(Unicode.shape[0]):
-    for x in range(Unicode.shape[1]-shifxtnum):
-        anser[y,x+shifxtnum] = Unicode[y,x]
+#anser = Unicode[0,0]
+#for y in range(Unicode[0,0].shape[0]):
+#    for x in range(Unicode[0,0].shape[1]-shifxtnum):
+#        anser[y,x+shifxtnum] = Unicode[0,0,y,x]
 
-print(anser)
+#print(anser)
