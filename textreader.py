@@ -118,16 +118,12 @@ def seach_txt(code0list,wariai,direction):
                 if seach == "background":
                     seach = "txt"
                     txt_sfx_sy.append([y, x, ""])
-                    print(f"開始位置:{len(txt_sfx_sy)}回目,{y+1},{x+1}")
-                else:
-                    print("通過位置",y+1,x+1)
 
                 break
 
         else:
             if seach == "txt":
                 seach = "background"
-                print("停止位置",y+1,x+1)
                 txt_sfx_sy[-1][2] = x-1
 
                 if direction != "penetration":
