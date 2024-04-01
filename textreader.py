@@ -161,7 +161,7 @@ def advice(code0list,wariai,hight,sahight,width):
         print(line)
         txtlen += line
 
-    print(txtlen/word_count)
+    print(txtlen/(word_count +1))
 
     #print(f"枠 : 縦[ {hight} + (描画範囲外:{sahight}) ]  *  幅[{width}]\nブロックの大きさ(1)に対し写真側は({width/(count/txtlen)} ※これはあくまでも目安です。)")
     
