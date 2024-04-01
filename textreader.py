@@ -395,8 +395,9 @@ guide,Unicode,seach_txttype = txtcode_selection(backupfile_name)
 # マニュアル操作
 
 imagename = "/Users/matsuurakenshin/WorkSpace/development/version=1&uuid=373F890D-0E09-4AFD-A766-6EA15D4186CB&mode=compatible&noloc=0.jpeg"
+wariai = 0.9
 
-color_image = set_image(imagename,0.9) #イメージとその比率
+color_image = set_image(imagename,wariai) #イメージとその比率
 code0list = removal_background(color_image,[36,36,36],10) #イメージ,背景色,背景色範囲
 
 #変更可能 /  一番初めの文字の左上の位置を(txtx,txty)に代入する
@@ -409,11 +410,13 @@ hight = 36      #文字の高さ
 sahight = 13.18 #余分な高さ
 
 #CUT(color_image,code0list,txtx,txty,width,hight,sahight)
-get_interval(code0list,1)
-get_interval(code0list,0.07)
+interval = get_interval(code0list,1)
+
+print(wariai*(width/interval))
+#get_interval(code0list,0.07)
 
 #final
-seach_strat(color_image,code0list,txtx,txty,width,hight,sahight)
+#seach_strat(color_image,code0list,txtx,txty,width,hight,sahight)
 
 
 #識字コードの詳細な定義
