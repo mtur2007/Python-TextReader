@@ -140,22 +140,25 @@ def get_interval(code0list,wariai):
     interval = []
     minimum_interval = 1000 #1000は仮置き
     for line in range(len(block)-1):
-        Beforeblock = block[line][1] + (block[line][2]-block[line][1])
-        Afterblock = block[line+1][1] + (block[line+1][2]-block[line+1][1])
+        Beforeblock = block[line][1]# + (block[line][2]-block[line][1])/2
+        Afterblock = block[line+1][1]# + (block[line+1][2]-block[line+1][1])/2
 
         if minimum_interval > Afterblock - Beforeblock:
             minimum_interval = Afterblock - Beforeblock
 
         interval.append(Afterblock - Beforeblock)
 
+    print(f"文字別間隔数:{interval}")
+    print(f"最小間隔:{minimum_interval}")
 
     txtlen = 0
-    word_count = 0
+    word_count = 1
     for line in interval:
         word_count += line // minimum_interval
         txtlen += line
 
-    return txtlen/word_count
+    print(f"総間隔{txtlen}, 総字数{word_count}")
+    return (txtlen+16)/word_count
 
     #print(f"枠 : 縦[ {hight} + (描画範囲外:{sahight}) ]  *  幅[{width}]\nブロックの大きさ(1)に対し写真側は({width/(count/txtlen)} ※これはあくまでも目安です。)")
     
@@ -383,7 +386,7 @@ def seach(txtcode,Unicode):
 
 
 #識字コードの定義
-backupfile_name = "thin_seach_txtcode.txt" # このファイルに情報が入っている
+backupfile_name = "/Users/matsuurakenshin/WorkSpace/公開用/TextReader/thin_seach_txtcode.txt" # このファイルに情報が入っている
 guide,Unicode,seach_txttype = txtcode_selection(backupfile_name)
 
 
@@ -395,22 +398,23 @@ guide,Unicode,seach_txttype = txtcode_selection(backupfile_name)
 # マニュアル操作
 
 imagename = "/Users/matsuurakenshin/WorkSpace/development/version=1&uuid=373F890D-0E09-4AFD-A766-6EA15D4186CB&mode=compatible&noloc=0.jpeg"
-wariai = 0.9
+wariai = 0.8903
 
 color_image = set_image(imagename,wariai) #イメージとその比率
 code0list = removal_background(color_image,[36,36,36],10) #イメージ,背景色,背景色範囲
 
 #変更可能 /  一番初めの文字の左上の位置を(txtx,txty)に代入する
-txtx = 5 #一番最初の文字の一番左の座標
-txty = 12 #一番最初の文字の一番上の座標
+txtx = 4 #一番最初の文字の一番左の座標
+txty = 11 #一番最初の文字の一番上の座標
 
 #変更不可 // ブロックの幅を変えることに対応していないので(width,hight,sahight)の値は変える事はできない
 width = 19.84   #文字の幅　
 hight = 36      #文字の高さ
-sahight = 13.18 #余分な高さ
+sahight = 13.4 #余分な高さ
 
-#CUT(color_image,code0list,txtx,txty,width,hight,sahight)
+CUT(color_image,code0list,txtx,txty,width,hight,sahight)
 interval = get_interval(code0list,1)
+print(interval)
 
 print(wariai*(width/interval))
 #get_interval(code0list,0.07)
