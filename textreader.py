@@ -38,25 +38,34 @@ def removal_background(color_image,RGB,kyoyou):
     Red, Green, Blue = RGB[0], RGB[1], RGB[2] #背景の色
     kyoyou = 38 #背景色の除外範囲
 
-    code0list = np.ones((color_image.shape[0], color_image.shape[1]), dtype='i1') #一旦0で埋める
+    code1list = np.zeros((color_image.shape[0], color_image.shape[1]), dtype='i1') #一旦0で埋める
+    #code1list = np.array([],dtype="i1")
 
 
     for y in range(color_image.shape[0]):
         for x in range(color_image.shape[1]):
-            if zettai(Red - color_image[y, x][0]) > kyoyou:
-                if zettai(Green - color_image[y, x][1]) > kyoyou:
-                    if zettai(Blue - color_image[y, x][2]) > kyoyou:
-                        code0list[y, x] = 0 #背景色と類似(許容(kyoyou)範囲内)なら1で書き換え、そうでなければ0のまま
+            if zettai(Red - color_image[y, x][0]) > kyoyou or zettai(Green - color_image[y, x][1]) > kyoyou or zettai(Blue - color_image[y, x][2]) > kyoyou:
+                code1list[y,x] = np.array(1)
+                #code1list = np.append(code1list,1) #背景色と類似(許容(kyoyou)範囲内)なら1で書き換え、そうでなければ0のまま
+            #else:
+            #    code1list = np.append(code1list,0)
 
+    #code1list.reshape(color_image.shape[0],color_image.shape[1])
+
+    print(code1list[0])
 
     with open("test.txt","w") as f:
-        for y in range(code0list.shape[0]):
+        for y in range(code1list.shape[0]):
             txt = ""
-            for x in range(code0list.shape[1]):
-                txt = txt + str(code0list[y,x])
+            for x in range(code1list.shape[1]):
+                txt = txt + str(code1list[y,x])
             f.write(txt + "\n")
+        else:
+            print(code1list.shape)
 
-    return code0list
+    print("gogo")
+
+    return code1list
     
 
 
@@ -396,8 +405,8 @@ guide,Unicode,seach_txttype = txtcode_selection(backupfile_name)
 
 
 # マニュアル操作
+imagename = "/Users/matsuurakenshin/WorkSpace/公開用/TextReader/version=1&uuid=373F890D-0E09-4AFD-A766-6EA15D4186CB&mode=compatible&noloc=0.jpeg"
 
-imagename = "/Users/matsuurakenshin/WorkSpace/development/version=1&uuid=373F890D-0E09-4AFD-A766-6EA15D4186CB&mode=compatible&noloc=0.jpeg"
 wariai = 0.8903
 
 color_image = set_image(imagename,wariai) #イメージとその比率
@@ -412,11 +421,11 @@ width = 19.84   #文字の幅　
 hight = 36      #文字の高さ
 sahight = 13.4 #余分な高さ
 
-CUT(color_image,code0list,txtx,txty,width,hight,sahight)
-interval = get_interval(code0list,1)
-print(interval)
+#CUT(color_image,code0list,txtx,txty,width,hight,sahight)
+#interval = get_interval(code0list,1)
+#print(interval)
 
-print(wariai*(width/interval))
+#print(wariai*(width/interval))
 #get_interval(code0list,0.07)
 
 #final
